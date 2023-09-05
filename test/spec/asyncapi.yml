@@ -158,18 +158,25 @@ components:
       payload:
           type: object
           properties:
-            error:
-              type: object
-              properties:
-                errorCode:
-                  type: integer              
-                errorMessage:
-                  type: string
+            errors:
+              type: array
+              items:
+                $ref: "#/components/schemas/error"
           examples:
             - error:
                 errorCode: 404
                 errorMessage: Something messed up
   schemas:
+    error:
+      type: object
+      properties:
+        errorCode:
+          type: integer              
+        errorMessage:
+          type: string
+      example:
+        errorCode: 404
+        errorMessage: Something messed up
     lightMeasuredPayload:
       type: object
       properties:

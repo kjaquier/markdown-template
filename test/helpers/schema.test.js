@@ -81,7 +81,7 @@ describe('SchemaHelpers', () => {
         items: { type: ['string', 'number'] },
       });
       const result = SchemaHelpers.toSchemaType(schema);
-      expect(result).toEqual('array<string | number>');
+      expect(result).toEqual('array&lt;string | number&gt;');
     });
 
     test('should handle empty array type', () => {
@@ -89,7 +89,7 @@ describe('SchemaHelpers', () => {
         type: 'array',
       });
       const result = SchemaHelpers.toSchemaType(schema);
-      expect(result).toEqual(`array<${SchemaCustomTypes.ANY}>`);
+      expect(result).toEqual(`array&lt;${SchemaCustomTypes.ANY}&gt;`);
     });
 
     test('should handle tuple types', () => {
@@ -99,7 +99,7 @@ describe('SchemaHelpers', () => {
       });
       const result = SchemaHelpers.toSchemaType(schema);
       expect(result).toEqual(
-        `tuple<object, string, ${SchemaCustomTypes.ANY}, ...optional<${SchemaCustomTypes.ANY}>>`,
+        `tuple&lt;object, string, ${SchemaCustomTypes.ANY}, ...optional&lt;${SchemaCustomTypes.ANY}&gt;&gt;`,
       );
     });
 
@@ -111,7 +111,7 @@ describe('SchemaHelpers', () => {
       });
       const result = SchemaHelpers.toSchemaType(schema);
       expect(result).toEqual(
-        `tuple<object, string, ${SchemaCustomTypes.ANY}, ...optional<string>>`,
+        `tuple&lt;object, string, ${SchemaCustomTypes.ANY}, ...optional&lt;string&gt;&gt;`,
       );
     });
 
@@ -123,7 +123,7 @@ describe('SchemaHelpers', () => {
       });
       const result = SchemaHelpers.toSchemaType(schema);
       expect(result).toEqual(
-        `tuple<object, string, ${SchemaCustomTypes.ANY}, ...optional<${SchemaCustomTypes.ANY}>>`,
+        `tuple&lt;object, string, ${SchemaCustomTypes.ANY}, ...optional&lt;${SchemaCustomTypes.ANY}&gt;&gt;`,
       );
     });
 
@@ -134,7 +134,7 @@ describe('SchemaHelpers', () => {
         additionalItems: false,
       });
       const result = SchemaHelpers.toSchemaType(schema);
-      expect(result).toEqual(`tuple<object, string, ${SchemaCustomTypes.ANY}>`);
+      expect(result).toEqual(`tuple&lt;object, string, ${SchemaCustomTypes.ANY}&gt;`);
     });
 
     test('should handle combined types', () => {
@@ -211,25 +211,25 @@ describe('SchemaHelpers', () => {
     test('should handle inclusive minimum', () => {
       const schema = new Schema({ minimum: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['>= 2']);
+      expect(result).toEqual(['&gt;= 2']);
     });
 
     test('should handle inclusive maximum', () => {
       const schema = new Schema({ maximum: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['<= 2']);
+      expect(result).toEqual(['&lt;= 2']);
     });
 
     test('should handle exclusive minimum', () => {
       const schema = new Schema({ exclusiveMinimum: 5 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['> 5']);
+      expect(result).toEqual(['&gt; 5']);
     });
 
     test('should handle exclusive maximum', () => {
       const schema = new Schema({ exclusiveMaximum: 5 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['< 5']);
+      expect(result).toEqual(['&lt; 5']);
     });
 
     test('should handle integer multipleOf', () => {
@@ -247,49 +247,49 @@ describe('SchemaHelpers', () => {
     test('should handle decimal multipleOf', () => {
       const schema = new Schema({ multipleOf: 0.0001 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['decimal places <= 4']);
+      expect(result).toEqual(['decimal places &lt;= 4']);
     });
 
     test('should handle min length', () => {
       const schema = new Schema({ minLength: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['>= 2 characters']);
+      expect(result).toEqual(['&gt;= 2 characters']);
     });
 
     test('should handle max length', () => {
       const schema = new Schema({ maxLength: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['<= 2 characters']);
+      expect(result).toEqual(['&lt;= 2 characters']);
     });
 
     test('should handle min items', () => {
       const schema = new Schema({ minItems: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['>= 2 items']);
+      expect(result).toEqual(['&gt;= 2 items']);
     });
 
     test('should handle max items', () => {
       const schema = new Schema({ maxItems: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['<= 2 items']);
+      expect(result).toEqual(['&lt;= 2 items']);
     });
 
     test('should handle unique items', () => {
       const schema = new Schema({ maxItems: 2, uniqueItems: true });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['<= 2 unique items']);
+      expect(result).toEqual(['&lt;= 2 unique items']);
     });
 
     test('should handle min properties', () => {
       const schema = new Schema({ minProperties: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['>= 2 properties']);
+      expect(result).toEqual(['&gt;= 2 properties']);
     });
 
     test('should handle max properties', () => {
       const schema = new Schema({ maxProperties: 2 });
       const result = SchemaHelpers.humanizeConstraints(schema);
-      expect(result).toEqual(['<= 2 properties']);
+      expect(result).toEqual(['&lt;= 2 properties']);
     });
 
     test('should handle not empty string', () => {
